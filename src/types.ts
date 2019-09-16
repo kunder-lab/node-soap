@@ -99,6 +99,7 @@ export interface IWsdlBaseOptions {
 /** @deprecated use IOptions */
 export type Option = IOptions;
 export interface IOptions extends IWsdlBaseOptions {
+  replaceTnsWord?: string;
   /** don't cache WSDL files, request them every time. */
   disableCache?: boolean;
   /** override the SOAP service's host specified in the .wsdl file. */

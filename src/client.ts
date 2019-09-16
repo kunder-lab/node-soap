@@ -400,13 +400,16 @@ export class Client extends EventEmitter {
         }
       }).join('\n');
     }
-
+    let xmlnsInEnvelope = this.wsdl.xmlnsInEnvelope;
+    if (options.replaceTnsWord) {
+      xmlnsInEnvelope = this.wsdl.xmlnsInEnvelope.replace('tns', options.replaceTnsWord);
+    }
     xml = '<?xml version="1.0" encoding="utf-8"?>' +
       '<' + envelopeKey + ':Envelope ' +
       xmlnsSoap + ' ' +
       'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
       encoding +
-      this.wsdl.xmlnsInEnvelope + '>' +
+      xmlnsInEnvelope + '>' +
       ((decodedHeaders || this.security) ?
         (
           '<' + envelopeKey + ':Header>' +
