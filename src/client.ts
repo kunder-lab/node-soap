@@ -177,6 +177,7 @@ export class Client extends EventEmitter {
   private _initializeOptions(options: IOptions) {
     this.streamAllowed = options.stream;
     this.normalizeNames = options.normalizeNames;
+    this.wsdl.options.replaceTnsWord = options.replaceTnsWord;
     this.wsdl.options.attributesKey = options.attributesKey || 'attributes';
     this.wsdl.options.envelopeKey = options.envelopeKey || 'soap';
     this.wsdl.options.preserveWhitespace = !!options.preserveWhitespace;
@@ -401,8 +402,8 @@ export class Client extends EventEmitter {
       }).join('\n');
     }
     let xmlnsInEnvelope = this.wsdl.xmlnsInEnvelope;
-    if (options.replaceTnsWord) {
-      xmlnsInEnvelope = this.wsdl.xmlnsInEnvelope.replace('tns', options.replaceTnsWord);
+    if (this.wsdl.options.replaceTnsWord) {
+      xmlnsInEnvelope = this.wsdl.xmlnsInEnvelope.replace('tns', this.wsdl.options.replaceTnsWord);
     }
     xml = '<?xml version="1.0" encoding="utf-8"?>' +
       '<' + envelopeKey + ':Envelope ' +
